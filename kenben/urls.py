@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from workspace.views import BoardsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('workspace/', BoardsView.as_view()),
 ]
