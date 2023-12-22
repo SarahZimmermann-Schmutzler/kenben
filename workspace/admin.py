@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Boards, Tickets, Subtasks
+from .models import Board, Ticket, Subtask
 
 # Register your models here.
-admin.site.register(Boards)
-admin.site.register(Tickets)
-admin.site.register(Subtasks)
+admin.site.register(Board)
+admin.site.register(Ticket)
+admin.site.register(Subtask)

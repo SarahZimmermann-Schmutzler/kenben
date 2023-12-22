@@ -8,10 +8,10 @@ from django.contrib.auth.models import User
 
 
 
-class Subtasks(models.Model):
+class Subtask(models.Model):
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=300, default=None)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, default=None)
+    description = models.CharField(max_length=300, blank=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True, blank=True, default=None)
     created_at = models.DateField(default=datetime.date.today)
     checked = models.BooleanField(default=False)
     assigned = models.ManyToManyField(User, related_name='members')
@@ -23,7 +23,7 @@ class Subtasks(models.Model):
     # funktion wie lange bis due_date
 
 
-class Tickets(models.Model):
+class Ticket(models.Model):
     todo = 'Todo'
     in_progress = 'In Progress'
     await_feedback = 'Awaiting Feedback'
@@ -46,7 +46,7 @@ class Tickets(models.Model):
     }
 
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=300, default=None)
+    description = models.CharField(max_length=300, blank=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     created_at = models.DateField(default=datetime.date.today)
     checked = models.BooleanField(default=False)
@@ -54,18 +54,18 @@ class Tickets(models.Model):
     priority = models.CharField(max_length=20, choices=priority_choices, default=low)
     status = models.CharField(max_length=20, choices=status_choices, default=todo)
     due_date = models.DateField(default=datetime.date.today)
-    subtasks = models.ManyToManyField(Subtasks, related_name='subtasks', default=None)
+    subtasks = models.ManyToManyField(Subtask, related_name='subtasks', blank=True, default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
     
     # funktion wie lange bis due_date
 
-class Boards(models.Model):
+class Board(models.Model):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     created_at = models.DateField(default=datetime.date.today)
-    tickets = models.ManyToManyField(Tickets, related_name='tickets')
+    tickets = models.ManyToManyField(Ticket, related_name='tickets', blank=True, default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
