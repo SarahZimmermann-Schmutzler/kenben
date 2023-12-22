@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Boards
-from .serializers import BoardsSerializer
+from .models import Boards, Tickets
+from .serializers import BoardsSerializer, TicketsSerializer
 
 # Create your views here.
 
@@ -22,4 +22,18 @@ class BoardsView(APIView):
         boards = Boards.objects.all()
         # sollen nur die Boards des Users angezeigt werden
         serializer = BoardsSerializer(boards, many=True)
+        return Response(serializer.data)
+
+class TicketsView(APIView):
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        """
+        Returns a list of all Tickets.
+        """
+        # boards = Boards.objects.filter(creator=request.user)
+        tickets = Tickets.objects.all()
+        # sollen nur die Boards des Users angezeigt werden
+        serializer = TicketsSerializer(tickets, many=True)
         return Response(serializer.data)
