@@ -13,21 +13,15 @@ from .serializers import BoardsSerializer, TicketsSerializer, SubtasksSerializer
 class RegisterView(APIView):
     """
     API view for User-Registration.
-    validates and creates new user account, if user (via email-adress) does not already exists
+    validates and creates new user account, if user (email-adress) does not already exists
     """
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if User.objects.filter(email=request.data["email"]).exists():
             return Response({"error": "Email already exists"})
-        
         serializer.is_valid(raise_exception=True)
-        
-        # user = serializer.save()
-        
-        data = {
-            "user": serializer.data,
-        }
-        return Response(data)
+        serializer.save()
+        return Response({"user": serializer.data})
 
 
 
