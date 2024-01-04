@@ -4,12 +4,38 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 
 from .models import Board, Ticket, Subtask
-from .serializers import BoardsSerializer, TicketsSerializer, SubtasksSerializer
+from .serializers import BoardsSerializer, TicketsSerializer, SubtasksSerializer, UserSerializer
 
 # Create your views here.
+class RegisterView(APIView):
+    """
+    API view for User-Registration.
+    validates and creates new user account, if user (via email-adress) does not already exists
+    """
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if User.objects.filter(email=request.data["email"]).exists():
+            return Response({"error": "Email already exists"})
+        
+        serializer.is_valid(raise_exception=True)
+        
+        # user = serializer.save()
+        
+        data = {
+            "user": serializer.data,
+        }
+        return Response(data)
+
+
+
 class LoginView(ObtainAuthToken):
+    """
+    API View for User-Login. 
+    provides token-based authentication: login, validating, returning auth-token with userdetails
+    """
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
