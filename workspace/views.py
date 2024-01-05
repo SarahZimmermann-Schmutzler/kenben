@@ -42,6 +42,7 @@ class LoginView(ObtainAuthToken):
             'email': user.email
         })
 
+
 class BoardsView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -50,11 +51,17 @@ class BoardsView(APIView):
         """
         Returns a list of all Boards.
         """
-        # boards = Boards.objects.filter(creator=request.user)
-        boards = Board.objects.all()
+        boards = Board.objects.filter(creator=request.user)
+        # boards = Board.objects.all()
         # sollen nur die Boards des Users angezeigt werden
         serializer = BoardsSerializer(boards, many=True)
         return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = BoardsSerializer(request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response({'board':serializer.data})
 
 
 class TicketsView(APIView):

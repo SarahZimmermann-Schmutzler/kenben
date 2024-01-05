@@ -15,8 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             password=validated_data['password'],
         )
-        # user.set_password(validated_data["password"])
-        # user.save()
         
         return user
     
@@ -27,6 +25,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BoardsSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        board = Board.objects.create(
+            creator=self.context['request'],
+            title=validated_data['title'],
+            )
+        return board
+    
     class Meta:
         model = Board
         fields = '__all__'
