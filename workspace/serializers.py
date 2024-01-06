@@ -25,12 +25,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BoardsSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        board = Board.objects.create(
-            creator=self.context['request'],
-            title=validated_data['title'],
-            )
-        return board
+    # def create(self, validated_data):
+    #     board = Board.objects.create(
+    #         creator=self.context['request'],
+    #         title=validated_data['title'],
+    #         )
+    #     return board
     
     class Meta:
         model = Board

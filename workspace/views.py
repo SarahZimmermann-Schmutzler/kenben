@@ -57,11 +57,12 @@ class BoardsView(APIView):
         serializer = BoardsSerializer(boards, many=True)
         return Response(serializer.data)
     
-    def post(self, request):
-        serializer = BoardsSerializer(request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response({'board':serializer.data})
+    def post(self, request, format=None):
+        serializer = BoardsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(creator=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 class TicketsView(APIView):
