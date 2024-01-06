@@ -36,6 +36,7 @@ class BoardsSerializer(serializers.ModelSerializer):
         model = Board
         fields = '__all__'
         # soll alle Felder anzeigen
+        read_only_fields = ('creator',)
 
 class TicketsSerializer(serializers.ModelSerializer):
     class Meta:

@@ -62,7 +62,7 @@ class BoardsView(APIView):
         if serializer.is_valid():
             serializer.save(creator=request.user)
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.data)
 
 
 class TicketsView(APIView):
