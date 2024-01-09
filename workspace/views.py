@@ -57,8 +57,13 @@ class BoardsView(APIView):
         serializer = BoardsSerializer(boards, many=True)
         return Response(serializer.data)
     
+    
     def post(self, request, format=None):
+        """
+        Saves a new created board in the backend.
+        """
         serializer = BoardsSerializer(data=request.data)
+        boards = Board.objects.filter(creator=request.user)
         if serializer.is_valid():
             serializer.save(creator=request.user)
             return Response(serializer.data)
