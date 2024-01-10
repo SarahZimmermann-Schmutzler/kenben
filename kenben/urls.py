@@ -20,7 +20,7 @@ from workspace.views import BoardsView, TicketsView, SubtasksView, LoginView, Re
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/boards/', BoardsView.as_view()),
-    path('api/boards/<pk>/', BoardsView.as_view()),
+    path('api/boards/<boardId>/', BoardsView.as_view()),
     path('api/tickets/', TicketsView.as_view()),
     path('api/subtasks/', SubtasksView.as_view()),
     path('', LoginView.as_view()),

@@ -47,15 +47,27 @@ class BoardsView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
+    def get(self, request, boardId=None, format=None):
         """
         Returns a list of all Boards.
         """
-        boards = Board.objects.filter(creator=request.user)
-        # boards = Board.objects.all()
-        # sollen nur die Boards des Users angezeigt werden
-        serializer = BoardsSerializer(boards, many=True)
-        return Response(serializer.data)
+        if boardId:
+            board = Board.objects.filter(id=boardId)
+            serializer = BoardsSerializer(board, many=False)
+            return Response(serializer.data)
+        else:
+            boards = Board.objects.filter(creator=request.user)
+            # boards = Board.objects.all()
+            # sollen nur die Boards des Users angezeigt werden
+            serializer = BoardsSerializer(boards, many=True)
+            return Response(serializer.data)
+        
+
+        # boards = Board.objects.filter(creator=request.user)
+        #     # boards = Board.objects.all()
+        #     # sollen nur die Boards des Users angezeigt werden
+        # serializer = BoardsSerializer(boards, many=True)
+        # return Response(serializer.data)
     
     
     def post(self, request, format=None):
@@ -63,7 +75,6 @@ class BoardsView(APIView):
         Saves a new created board in the backend.
         """
         serializer = BoardsSerializer(data=request.data)
-        boards = Board.objects.filter(creator=request.user)
         if serializer.is_valid():
             serializer.save(creator=request.user)
             return Response(serializer.data)
