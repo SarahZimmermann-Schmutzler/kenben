@@ -52,7 +52,7 @@ class BoardsView(APIView):
         Returns a list of all Boards.
         """
         if boardId:
-            board = Board.objects.filter(id=boardId)
+            board = Board.objects.get(id=boardId)
             serializer = BoardsSerializer(board, many=False)
             return Response(serializer.data)
         else:
