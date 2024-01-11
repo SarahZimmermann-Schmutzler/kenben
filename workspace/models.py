@@ -6,22 +6,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
-
-class Subtask(models.Model):
+class Board(models.Model):
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=300, blank=True)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True, blank=True, default=None)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     created_at = models.DateField(default=datetime.date.today)
-    checked = models.BooleanField(default=False)
-    assigned = models.ManyToManyField(User, related_name='members')
-    due_date = models.DateField(default=datetime.date.today)
+    # tickets = models.ManyToManyField(Ticket, related_name='tickets', blank=True, default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
     
-    # funktion wie lange bis due_date
-
 
 class Ticket(models.Model):
     todo = 'Todo'
@@ -54,18 +47,30 @@ class Ticket(models.Model):
     priority = models.CharField(max_length=20, choices=priority_choices, default=low)
     status = models.CharField(max_length=20, choices=status_choices, default=todo)
     due_date = models.DateField(default=datetime.date.today)
-    subtasks = models.ManyToManyField(Subtask, related_name='subtasks', blank=True, default=None)
+    # subtasks = models.ManyToManyField(Subtask, related_name='subtasks', blank=True, default=None)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='tickets', default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
     
     # funktion wie lange bis due_date
 
-class Board(models.Model):
+class Subtask(models.Model):
     title = models.CharField(max_length=100)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
+    description = models.CharField(max_length=300, blank=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True, blank=True, default=None)
     created_at = models.DateField(default=datetime.date.today)
-    tickets = models.ManyToManyField(Ticket, related_name='tickets', blank=True, default=None)
+    checked = models.BooleanField(default=False)
+    assigned = models.ManyToManyField(User, related_name='members')
+    due_date = models.DateField(default=datetime.date.today)
+    tickets = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='subtasks', default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
+    
+    # funktion wie lange bis due_date
+
+
+
+
+

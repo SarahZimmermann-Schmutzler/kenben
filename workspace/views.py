@@ -49,15 +49,15 @@ class BoardsView(APIView):
 
     def get(self, request, boardId=None, format=None):
         """
-        Returns a list of all Boards.
+        Returns a list of all Boards of the user or a special board.
         """
         if boardId:
             board = Board.objects.get(id=boardId)
             serializer = BoardsSerializer(board, many=False)
             return Response(serializer.data)
         else:
-            boards = Board.objects.filter(creator=request.user)
-            # boards = Board.objects.all()
+            # boards = Board.objects.filter(creator=request.user)
+            boards = Board.objects.all()
             # sollen nur die Boards des Users angezeigt werden
             serializer = BoardsSerializer(boards, many=True)
             return Response(serializer.data)
@@ -89,9 +89,7 @@ class TicketsView(APIView):
         """
         Returns a list of all Tickets.
         """
-        # boards = Boards.objects.filter(creator=request.user)
         tickets = Ticket.objects.all()
-        # sollen nur die Boards des Users angezeigt werden
         serializer = TicketsSerializer(tickets, many=True)
         return Response(serializer.data)
 
