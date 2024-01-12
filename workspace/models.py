@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from datetime import date
 from django.conf import settings
 from django.contrib.auth.models import User
 
@@ -53,7 +54,11 @@ class Ticket(models.Model):
     def __str__(self):
         return f'{self.id} {self.title}'
     
-    # funktion wie lange bis due_date
+    def time_till_due(self):
+        today = date.today()
+        due = self.due_date
+        delta = due - today
+        return delta.days
 
 class Subtask(models.Model):
     title = models.CharField(max_length=100)
