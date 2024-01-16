@@ -42,7 +42,7 @@ class TicketsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         # fields = '__all__'
-        fields = ['title', 'description', 'creator', 'created_at', 'checked', 'assigned_to', 'priority', 'status', 'due_date', 'board', 'time_till_due']
+        fields = ['id', 'title', 'description', 'creator', 'created_at', 'checked', 'assigned_to', 'priority', 'status', 'due_date', 'board', 'time_till_due']
 
 class SubtasksSerializer(serializers.ModelSerializer):
     class Meta:

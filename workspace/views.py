@@ -102,8 +102,6 @@ class SubtasksView(APIView):
         """
         Returns a list of all Subtasks.
         """
-        # boards = Boards.objects.filter(creator=request.user)
         subtasks = Subtask.objects.all()
-        # sollen nur die Boards des Users angezeigt werden
         serializer = SubtasksSerializer(subtasks, many=True)
         return Response(serializer.data)
