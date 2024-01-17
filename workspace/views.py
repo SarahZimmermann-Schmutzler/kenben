@@ -85,13 +85,18 @@ class TicketsView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
+    def get(self, request, ticketId=None, format=None):
         """
-        Returns a list of all Tickets.
+        Returns a list of the selected Ticket or all Tickets.
         """
-        tickets = Ticket.objects.all()
-        serializer = TicketsSerializer(tickets, many=True)
-        return Response(serializer.data)
+        if ticketId:
+            ticket = Ticket.objects.get(id=ticketId)
+            serializer = TicketsSerializer(ticket, many=False)
+            return Response(serializer.data)
+        else: 
+            tickets = Ticket.objects.all()
+            serializer = TicketsSerializer(tickets, many=True)
+            return Response(serializer.data)
 
 
 class SubtasksView(APIView):

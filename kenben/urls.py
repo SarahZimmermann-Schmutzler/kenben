@@ -22,6 +22,7 @@ urlpatterns = [
     path('api/boards/', BoardsView.as_view()),
     path('api/boards/<boardId>/', BoardsView.as_view()),
     path('api/tickets/', TicketsView.as_view()),
+    path('api/tickets/<ticketId>/', TicketsView.as_view()),
     path('api/subtasks/', SubtasksView.as_view()),
     path('', LoginView.as_view()),
     path('signup/', RegisterView.as_view()),
