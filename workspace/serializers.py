@@ -38,14 +38,19 @@ class BoardsSerializer(serializers.ModelSerializer):
         # soll alle Felder anzeigen
         read_only_fields = ('creator',)
 
-class TicketsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ticket
-        # fields = '__all__'
-        fields = ['id', 'title', 'description', 'creator', 'created_at', 'checked', 'assigned_to', 'priority', 'status', 'due_date', 'board', 'time_till_due']
 
 class SubtasksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subtask
         fields = '__all__'
         
+
+class TicketsSerializer(serializers.ModelSerializer):
+    subtasks = SubtasksSerializer(many=True, required=False)
+    
+    class Meta:
+        model = Ticket
+        # fields = '__all__'
+        fields = ['id', 'title', 'description', 'creator', 'created_at', 'checked', 'assigned_to', 'priority', 'status', 'due_date', 'board', 'time_till_due', 'subtasks']
+
+

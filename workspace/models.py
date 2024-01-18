@@ -15,7 +15,8 @@ class Board(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.title}'
-    
+
+   
 
 class Ticket(models.Model):
     todo = 'Todo'
@@ -59,6 +60,7 @@ class Ticket(models.Model):
         due = self.due_date
         delta = due - today
         return delta.days
+
 
 class Subtask(models.Model):
     title = models.CharField(max_length=100)
