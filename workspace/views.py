@@ -24,7 +24,6 @@ class RegisterView(APIView):
         return Response({"user": serializer.data})
 
 
-
 class LoginView(ObtainAuthToken):
     """
     API View for User-Login. 
@@ -61,13 +60,6 @@ class BoardsView(APIView):
             # sollen nur die Boards des Users angezeigt werden
             serializer = BoardsSerializer(boards, many=True)
             return Response(serializer.data)
-        
-
-        # boards = Board.objects.filter(creator=request.user)
-        #     # boards = Board.objects.all()
-        #     # sollen nur die Boards des Users angezeigt werden
-        # serializer = BoardsSerializer(boards, many=True)
-        # return Response(serializer.data)
     
     
     def post(self, request, format=None):
@@ -109,4 +101,17 @@ class SubtasksView(APIView):
         """
         subtasks = Subtask.objects.all()
         serializer = SubtasksSerializer(subtasks, many=True)
+        return Response(serializer.data)
+
+
+class UsersView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        """
+        Returns a list of all Users.
+        """
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return Response(serializer.data)

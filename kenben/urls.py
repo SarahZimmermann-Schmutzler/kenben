@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from workspace.views import BoardsView, TicketsView, SubtasksView, LoginView, RegisterView
+from workspace.views import BoardsView, TicketsView, SubtasksView, LoginView, RegisterView, UsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/tickets/', TicketsView.as_view()),
     path('api/tickets/<ticketId>/', TicketsView.as_view()),
     path('api/subtasks/', SubtasksView.as_view()),
+    path('api/allUsers/', UsersView.as_view()),
     path('', LoginView.as_view()),
     path('signup/', RegisterView.as_view()),
 ]
