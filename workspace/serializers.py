@@ -52,5 +52,5 @@ class TicketsSerializer(serializers.ModelSerializer):
         model = Ticket
         # fields = '__all__'
         fields = ['id', 'title', 'description', 'creator', 'created_at', 'checked', 'assigned_to', 'priority', 'status', 'due_date', 'board', 'time_till_due', 'subtasks']
-
+        read_only_fields = ('creator',)
 

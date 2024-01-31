@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
+import datetime
+from datetime import date
 
 from .models import Board, Ticket, Subtask
 from .serializers import BoardsSerializer, TicketsSerializer, SubtasksSerializer, UserSerializer
@@ -89,6 +91,17 @@ class TicketsView(APIView):
             tickets = Ticket.objects.all()
             serializer = TicketsSerializer(tickets, many=True)
             return Response(serializer.data)
+    
+
+    def post(self, request, format=None):
+        """
+        Saves a new created ticket in the backend.
+        """
+        serializer = TicketsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(creator=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 class SubtasksView(APIView):
