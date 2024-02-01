@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
+from rest_framework import status
 import datetime
 from datetime import date
 
@@ -102,6 +103,12 @@ class TicketsView(APIView):
             serializer.save(creator=request.user)
             return Response(serializer.data)
         return Response(serializer.errors)
+
+    
+    def delete(self, request, ticketId=None, format=None):
+        ticket = Ticket.objects.get(id=ticketId)
+        ticket.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class SubtasksView(APIView):
