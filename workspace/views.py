@@ -103,6 +103,17 @@ class TicketsView(APIView):
             serializer.save(creator=request.user)
             return Response(serializer.data)
         return Response(serializer.errors)
+    
+    def patch(self, request,ticketId=None, format=None):
+        """
+        Updates a ticket in the backend.
+        """
+        ticket = Ticket.objects.get(id=ticketId)
+        serializer = TicketsSerializer(ticket, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save(creator=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
     
     def delete(self, request, ticketId=None, format=None):
