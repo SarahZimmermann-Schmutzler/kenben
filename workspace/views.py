@@ -122,6 +122,17 @@ class SubtasksView(APIView):
         subtasks = Subtask.objects.all()
         serializer = SubtasksSerializer(subtasks, many=True)
         return Response(serializer.data)
+    
+
+    def post(self, request, format=None):
+        """
+        Saves a new created subtask in the backend.
+        """
+        serializer = SubtasksSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 class UsersView(APIView):
