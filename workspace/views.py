@@ -104,11 +104,19 @@ class TicketsView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
     
+    
     def patch(self, request,ticketId=None, format=None):
         """
         Updates a ticket in the backend.
         """
         ticket = Ticket.objects.get(id=ticketId)
+        ticket.title = request.data.get('title', ticket.title)
+        ticket.description = request.data.get('description', ticket.description)
+        # ticket.assigned_to = request.data.get('assigned_to', ticket.assigned_to)
+        # new_assigned = request.data.get('assigned_to', ticket.assigned_to)
+        # ticket.assigned_to.set(new_assigned)
+        ticket.priority = request.data.get('priority', ticket.priority)
+        ticket.due_date = request.data.get('due_date', ticket.due_date)
         serializer = TicketsSerializer(ticket, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(creator=request.user)
