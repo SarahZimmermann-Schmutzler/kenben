@@ -112,8 +112,8 @@ class TicketsView(APIView):
         ticket = Ticket.objects.get(id=ticketId)
         ticket.title = request.data.get('title', ticket.title)
         ticket.description = request.data.get('description', ticket.description)
-        assigned = request.data.get('assigned_to') or ticket.assigned_to
-        ticket.assigned_to.set(assigned)
+        # assigned = request.data.get('assigned_to') or ticket.assigned_to
+        # ticket.assigned_to.set(assigned)
         ticket.priority = request.data.get('priority', ticket.priority)
         ticket.due_date = request.data.get('due_date', ticket.due_date)
         serializer = TicketsSerializer(ticket, data=request.data, partial=True)
@@ -149,6 +149,18 @@ class SubtasksView(APIView):
         serializer = SubtasksSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+    def patch(self, request,subtaskId=None, format=None):
+        """
+        Updates a subtask in the backend.
+        """
+        subtask = Subtask.objects.get(id=subtaskId)
+        subtask.checked = request.data.get('checked', subtask.checked)
+        serializer = SubtasksSerializer(subtask, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save(creator=request.user)
             return Response(serializer.data)
         return Response(serializer.errors)
 

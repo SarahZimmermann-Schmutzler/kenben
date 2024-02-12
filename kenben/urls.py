@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/tickets/', TicketsView.as_view()),
     path('api/tickets/<ticketId>/', TicketsView.as_view()),
     path('api/subtasks/', SubtasksView.as_view()),
+    path('api/subtasks/<subtaskId>/', SubtasksView.as_view()),
     path('api/allUsers/', UsersView.as_view()),
     path('', LoginView.as_view()),
     path('signup/', RegisterView.as_view()),
