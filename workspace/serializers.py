@@ -47,6 +47,19 @@ class SubtasksSerializer(serializers.ModelSerializer):
 
 class TicketsSerializer(serializers.ModelSerializer):
     subtasks = SubtasksSerializer(many=True, required=False)
+
+    def update(self, instance, validated_data):
+        assigned_to = validated_data.pop('assigned_to', None)
+        if assigned_to is not None:
+            # Hier erzeugst die eine instanz des Feldes, und wird dann entsprechend ersetzt.
+            instance.assigned_to.set(assigned_to)
+
+        # Hier werden dann die anderen Felder entsprechend verarbeitet.
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
     
     class Meta:
         model = Ticket
