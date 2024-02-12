@@ -112,7 +112,8 @@ class TicketsView(APIView):
         ticket = Ticket.objects.get(id=ticketId)
         ticket.title = request.data.get('title', ticket.title)
         ticket.description = request.data.get('description', ticket.description)
-        ticket.assigned_to.set(request.data.get('assigned_to', ticket.assigned_to))
+        assigned = request.data.get('assigned_to') or ticket.assigned_to
+        ticket.assigned_to.set(assigned)
         ticket.priority = request.data.get('priority', ticket.priority)
         ticket.due_date = request.data.get('due_date', ticket.due_date)
         serializer = TicketsSerializer(ticket, data=request.data, partial=True)
