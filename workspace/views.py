@@ -163,6 +163,11 @@ class SubtasksView(APIView):
             serializer.save(creator=request.user)
             return Response(serializer.data)
         return Response(serializer.errors)
+    
+    def delete(self, request, subtaskId=None, format=None):
+        subtask = Subtask.objects.get(id=subtaskId)
+        subtask.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UsersView(APIView):
