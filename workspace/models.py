@@ -11,7 +11,6 @@ class Board(models.Model):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     created_at = models.DateField(default=datetime.date.today)
-    # tickets = models.ManyToManyField(Ticket, related_name='tickets', blank=True, default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
@@ -49,12 +48,12 @@ class Ticket(models.Model):
     priority = models.CharField(max_length=20, choices=priority_choices, default=low)
     status = models.CharField(max_length=20, choices=status_choices, default=todo)
     due_date = models.DateField(default=datetime.date.today)
-    # subtasks = models.ManyToManyField(Subtask, related_name='subtasks', blank=True, default=None)
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='tickets', default=None)
 
     def __str__(self):
         return f'{self.id} {self.title}'
     
+    # shows how many days until due_date
     def time_till_due(self):
         today = date.today()
         due = self.due_date
@@ -74,10 +73,3 @@ class Subtask(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.title}'
-    
-    # funktion wie lange bis due_date
-
-
-
-
-

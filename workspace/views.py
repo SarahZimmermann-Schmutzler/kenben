@@ -64,7 +64,6 @@ class BoardsView(APIView):
             serializer = BoardsSerializer(boards, many=True)
             return Response(serializer.data)
     
-    
     def post(self, request, format=None):
         """
         Saves a new created board in the backend.
@@ -92,7 +91,6 @@ class TicketsView(APIView):
             tickets = Ticket.objects.all()
             serializer = TicketsSerializer(tickets, many=True)
             return Response(serializer.data)
-    
 
     def post(self, request, format=None):
         """
@@ -104,7 +102,6 @@ class TicketsView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
     
-    
     def patch(self, request,ticketId=None, format=None):
         """
         Updates a ticket in the backend.
@@ -112,8 +109,6 @@ class TicketsView(APIView):
         ticket = Ticket.objects.get(id=ticketId)
         ticket.title = request.data.get('title', ticket.title)
         ticket.description = request.data.get('description', ticket.description)
-        # assigned = request.data.get('assigned_to') or ticket.assigned_to
-        # ticket.assigned_to.set(assigned)
         ticket.status = request.data.get('status', ticket.status)
         ticket.priority = request.data.get('priority', ticket.priority)
         ticket.due_date = request.data.get('due_date', ticket.due_date)
@@ -123,8 +118,10 @@ class TicketsView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
 
-    
     def delete(self, request, ticketId=None, format=None):
+        """
+        Deletes a ticket in the backend.
+        """
         ticket = Ticket.objects.get(id=ticketId)
         ticket.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -142,7 +139,6 @@ class SubtasksView(APIView):
         serializer = SubtasksSerializer(subtasks, many=True)
         return Response(serializer.data)
     
-
     def post(self, request, format=None):
         """
         Saves a new created subtask in the backend.
@@ -166,6 +162,9 @@ class SubtasksView(APIView):
         return Response(serializer.errors)
     
     def delete(self, request, subtaskId=None, format=None):
+        """
+        Deletes a subtask in the backend.
+        """
         subtask = Subtask.objects.get(id=subtaskId)
         subtask.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
