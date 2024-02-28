@@ -27,10 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'SarahZimmermann.pythonanywhere.com',
-    '127.0.0.1'
+    # '127.0.0.1',
+    # 'http://127.0.0.1:8000'
+    'localhost'
     ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = [
+    'http://localhost:4200',
+    'https://SarahZimmermann.pythonanywhere.com'
+]
 
 # Application definition
 
