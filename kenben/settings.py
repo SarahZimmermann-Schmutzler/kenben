@@ -34,7 +34,7 @@ ALLOWED_HOSTS = [
 CORS_ALLOW_ALL_ORIGINS = [
     'http://localhost:4200',
     'https://sarahzimmermann.pythonanywhere.com',
-    'https://sarah-zimmermann-schmutzler.developerakademie.net',
+    'https://sarah-zimmermann-schmutzler.developerakademie.net/kenben_frontend/index.html',
 ]
 
 # Application definition
