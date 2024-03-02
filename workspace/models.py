@@ -59,6 +59,12 @@ class Ticket(models.Model):
         due = self.due_date
         delta = due - today
         return delta.days
+    
+    # shows the username of the user
+    def assigned_to_usernames(self):
+        usernames = [user.username for user in self.assigned_to.all()]
+        # return ', '.join(user.username for user in self.assigned_to.all())
+        return usernames
 
 
 class Subtask(models.Model):
