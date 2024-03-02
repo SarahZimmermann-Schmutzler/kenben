@@ -65,6 +65,11 @@ class Ticket(models.Model):
         usernames = [user.username for user in self.assigned_to.all()]
         # return ', '.join(user.username for user in self.assigned_to.all())
         return usernames
+    
+    def assigned_to_capitals(self):
+        asString = ','.join(user.username for user in self.assigned_to.all())
+        inArray = asString.split(',')
+        return inArray
 
 
 class Subtask(models.Model):
