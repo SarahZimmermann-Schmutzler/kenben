@@ -66,11 +66,14 @@ class Ticket(models.Model):
         # return ', '.join(user.username for user in self.assigned_to.all())
         return usernames
     
+    # shows the first letter of the usersnames
     def assigned_to_first_letter(self):
+        first_letters = []
         usernames = [user.username for user in self.assigned_to.all()]
         for username in usernames:
             first_letter = username[0]
-        return first_letter
+            first_letters.append(first_letter)
+        return first_letters
 
 
 class Subtask(models.Model):
