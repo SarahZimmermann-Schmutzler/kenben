@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     'SarahZimmermann.pythonanywhere.com',
     'localhost',
     '127.0.0.1',
+    '34.118.16.160',
     ]
 
 CORS_ALLOW_ALL_ORIGINS = [
