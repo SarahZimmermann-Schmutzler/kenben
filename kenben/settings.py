@@ -35,6 +35,7 @@ CORS_ALLOW_ALL_ORIGINS = [
     'http://localhost:4200',
     'https://sarahzimmermann.pythonanywhere.com',
     'https://sarah-zimmermann-schmutzler.developerakademie.net',
+    'https://kenben.s-zimmermann-schmutzler.de',
 ]
 
 # Application definition
