@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from workspace.views import BoardsView, TicketsView, SubtasksView, LoginView, RegisterView, UsersView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,4 @@ urlpatterns = [
     path('api/allUsers/', UsersView.as_view()),
     path('', LoginView.as_view()),
     path('signup/', RegisterView.as_view()),
-]
+] + staticfiles_urlpatterns()
