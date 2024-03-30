@@ -30,7 +30,6 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '34.118.16.160',
-    'kenben.backend.s-zimmermann-schmutzler.de',
     'backend.s-zimmermann-schmutzler.de',
     ]
 
@@ -39,7 +38,6 @@ CORS_ALLOW_ALL_ORIGINS = [
     'https://sarahzimmermann.pythonanywhere.com',
     'https://sarah-zimmermann-schmutzler.developerakademie.net',
     'https://kenben.s-zimmermann-schmutzler.de',
-    'backend.s-zimmermann-schmutzler.de',
 ]
 
 # Application definition
