@@ -39,6 +39,7 @@ CORS_ALLOW_ALL_ORIGINS = [
     'https://sarahzimmermann.pythonanywhere.com',
     'https://sarah-zimmermann-schmutzler.developerakademie.net',
     'https://kenben.s-zimmermann-schmutzler.de',
+    'backend.s-zimmermann-schmutzler.de',
 ]
 
 # Application definition
