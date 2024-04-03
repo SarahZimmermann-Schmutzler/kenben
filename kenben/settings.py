@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '34.118.16.160',
     'backend.s-zimmermann-schmutzler.de',
+    'backend.s-zimmermann-schmutzler.de/kenben',
     ]
 
 CORS_ALLOW_ALL_ORIGINS = [
