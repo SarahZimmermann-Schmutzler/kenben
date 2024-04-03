@@ -145,3 +145,7 @@ MEDIA_ROOT = '/home/SarahZimmermann/kenben/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = '/home/SarahZimmermann/kenben/static'
 STATIC_URL = '/static/'
+
+#default static files backend.s-zimmermann-schmutzler.de/kenben
+STATIC_ROOT = '/home/sarah_zimmermannschmutzler/projects/kenben/static'
+STATIC_URL = 'kenben/static/'
