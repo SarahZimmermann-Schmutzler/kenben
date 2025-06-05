@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,30 +24,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)7383i!q$gcco58-c=_h_g5mi9%xe$ie(e2cdog3t!wyxtl4s!'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = [
-    'SarahZimmermann.pythonanywhere.com',
     'localhost',
     '127.0.0.1',
-    '34.118.16.160',
-    'backend.s-zimmermann-schmutzler.de',
-    'backend.s-zimmermann-schmutzler.de/kenben',
+    os.getenv('IP_ADDRESS_VM')
     ]
 
 CORS_ALLOW_ALL_ORIGINS = [
     'http://localhost:4200',
-    'https://sarahzimmermann.pythonanywhere.com',
-    'https://sarah-zimmermann-schmutzler.developerakademie.net',
-    'https://kenben.s-zimmermann-schmutzler.de',
+    os.getenv('CORS_ALLOWED_ORIGINS'),
 ]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -93,7 +93,10 @@ WSGI_APPLICATION = 'kenben.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # for containerization
+        'NAME': BASE_DIR / 'db' / 'db.sqlite3',
+        # for local use
+        #'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -141,11 +144,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = '/home/SarahZimmermann/kenben/media'
-MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/SarahZimmermann/kenben/static'
-STATIC_URL = '/static/'
+#MEDIA_ROOT = '/home/SarahZimmermann/kenben/media'
+#MEDIA_URL = '/media/'
+#STATIC_ROOT = '/home/SarahZimmermann/kenben/static'
+#STATIC_URL = '/static/'
 
 #default static files backend.s-zimmermann-schmutzler.de/kenben
-STATIC_ROOT = '/home/sarah_zimmermannschmutzler/projects/kenben/static'
-STATIC_URL = 'static/'
+#STATIC_ROOT = '/home/sarah_zimmermannschmutzler/projects/kenben/static'
+#STATIC_URL = 'static/'
