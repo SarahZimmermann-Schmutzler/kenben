@@ -22,14 +22,26 @@ echo "Checking if superuser exists..."
 #sys.exit(0) if User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists() else sys.exit(1)
 #"
 
-if [ $? -ne 0 ]; then
-  echo "Creating superuser..."
-  python manage.py createsuperuser --noinput \
-    --email "$DJANGO_SUPERUSER_EMAIL" \
-    --username "$DJANGO_SUPERUSER_USERNAME"
-else
-  echo "Superuser already exists, skipping creation."
-fi
+#if [ $? -ne 0 ]; then
+  #echo "Creating superuser..."
+  #python manage.py createsuperuser --noinput \
+   #--email "$DJANGO_SUPERUSER_EMAIL" \
+    #--username "$DJANGO_SUPERUSER_USERNAME"
+#else
+  #echo "Superuser already exists, skipping creation."
+#fi
+
+echo "Creating superuser (if not exists)..."
+python manage.py shell -c "
+from django.contrib.auth import get_user_model
+User = get_user_model()
+if not User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists():
+    User.objects.create_superuser(
+        '${DJANGO_SUPERUSER_USERNAME}',
+        '${DJANGO_SUPERUSER_EMAIL}',
+        '${DJANGO_SUPERUSER_PASSWORD}'
+    )
+"
 
 # Step 3: Start the Django server 
 #echo "Starting the server..."
