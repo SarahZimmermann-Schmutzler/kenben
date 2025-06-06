@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     os.getenv('IP_ADDRESS_VM')
     ]
 
-CORS_ALLOW_ALL_ORIGINS = [
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
     os.getenv('CORS_ALLOWED_ORIGINS'),
 ]
