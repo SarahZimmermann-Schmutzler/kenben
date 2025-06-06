@@ -12,7 +12,13 @@ python manage.py migrate || { echo "Migration failed"; exit 1; }
 
 # Step 2: Check if superuser already exists
 echo "Checking if superuser exists..."
-echo "from django.contrib.auth import get_user_model; User = get_user_model(); exit(0) if User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists() else exit(1)" | python manage.py shell
+
+python manage.py shell -c "
+from django.contrib.auth import get_user_model
+User = get_user_model()
+import sys
+sys.exit(0) if User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists() else sys.exit(1)
+"
 
 if [ $? -ne 0 ]; then
   echo "Creating superuser..."
