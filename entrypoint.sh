@@ -10,28 +10,9 @@ python manage.py makemigrations || { echo "Makemigrations failed"; exit 1; }
 python manage.py migrate || { echo "Migration failed"; exit 1; }
 
 
-# Step 2: Check if superuser already exists
-echo "Checking if superuser exists..."
-
-#echo "from django.contrib.auth import get_user_model; User = get_user_model(); exit(0) if User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists() else exit(1)" | python manage.py shell
-
-#python manage.py shell -c "
-#from django.contrib.auth import get_user_model
-#User = get_user_model()
-#import sys
-#sys.exit(0) if User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists() else sys.exit(1)
-#"
-
-#if [ $? -ne 0 ]; then
-  #echo "Creating superuser..."
-  #python manage.py createsuperuser --noinput \
-   #--email "$DJANGO_SUPERUSER_EMAIL" \
-    #--username "$DJANGO_SUPERUSER_USERNAME"
-#else
-  #echo "Superuser already exists, skipping creation."
-#fi
-
+# Step 2: Create superuser
 echo "Creating superuser (if not exists)..."
+
 python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -44,5 +25,5 @@ if not User.objects.filter(username='${DJANGO_SUPERUSER_USERNAME}').exists():
 "
 
 # Step 3: Start the Django server 
-#echo "Starting the server..."
+echo "Starting the server..."
 python manage.py runserver 0.0.0.0:8000
