@@ -32,12 +32,12 @@ DEBUG = os.getenv('DEBUG')
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    os.getenv('IP_ADDRESS_VM')
+    os.getenv('IP_ADDRESS_VM', "").split(",")
     ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
-    os.getenv('CORS_ALLOWED_ORIGINS'),
+    os.getenv('CORS_ALLOWED_ORIGINS', "").split(",")
 ]
 
 # Application definition
