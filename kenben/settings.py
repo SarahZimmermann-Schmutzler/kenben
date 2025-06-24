@@ -142,13 +142,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# default static files settings for PythonAnywhere.
-# see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-#MEDIA_ROOT = '/home/SarahZimmermann/kenben/media'
-#MEDIA_URL = '/media/'
-#STATIC_ROOT = '/home/SarahZimmermann/kenben/static'
-#STATIC_URL = '/static/'
-
 #default static files backend.s-zimmermann-schmutzler.de/kenben
 #STATIC_ROOT = '/home/sarah_zimmermannschmutzler/projects/kenben/static'
 #STATIC_URL = 'static/'
