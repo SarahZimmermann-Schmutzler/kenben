@@ -29,6 +29,6 @@ urlpatterns = [
     path('api/allUsers/', UsersView.as_view()),
     path('', LoginView.as_view()),
     path('api/login/', LoginView.as_view()),  # API-Login for nginx
-    path('api/signup/', RegisterView.as_view()),  # API-Login for nginx
+    path('api/signup/', RegisterView.as_view()),  # API-Register for nginx
     path('signup/', RegisterView.as_view()),
 ] + staticfiles_urlpatterns()
